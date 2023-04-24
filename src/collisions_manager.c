@@ -25,7 +25,8 @@ static const sfFloatRect *l_colisions[] = {&(sfFloatRect){0,0,64,64},
                                            &(sfFloatRect){0,0,64,63},
                                            &(sfFloatRect){0,0,16,66},
                                            &(sfFloatRect){0,0,16,66},
-                                           &(sfFloatRect){0,0,62,70}};
+                                           &(sfFloatRect){0,0,62,70},
+                                           &(sfFloatRect){0,0,64,64}};
 
 void add_node(p_colision **head , p_colision *new_node)
 {
@@ -48,7 +49,7 @@ void la_colision(world_tile *txt, p_colision **head, char sprite)
 {
     int i = 0;
     p_colision *new_node = NULL;
-    char* col_posibilities = "GABCHWw=POj+*12~";
+    char* col_posibilities = "GABCHWw=POj+*12~P";
 
     while (col_posibilities[i] != sprite && i <= my_strlen(col_posibilities)) {
         i++;
