@@ -27,9 +27,12 @@
     void item_struct_alloc(item_t *item);
     void setup_item(item_t *item);
     void move_item_sidebar
-    (inventory_t *inventory, item_t *item, sfRenderWindow *window);
-    void change_isselected_value_item(item_t *item, sfRenderWindow *window);
+    (inventory_t *inventory, item_t *item,
+    sfRenderWindow *window, sfView *view);
+    void change_isselected_value_item(item_t *item,
+    sfRenderWindow *window, sfView *view);
     void move_item_container
-    (inventory_t *inventory, item_t *item, sfRenderWindow *window);
+    (inventory_t *inventory, item_t *item,
+    sfRenderWindow *window, sfView *view);
 
 #endif /* !ITEM_H_ */

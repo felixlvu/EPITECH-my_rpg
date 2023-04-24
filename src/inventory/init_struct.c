@@ -47,6 +47,7 @@ void setup_sprite_selected_inventory(inventory_t *inventory)
     (inventory->selected->sprt, inventory->selected->text, sfTrue);
     sfSprite_setScale(inventory->selected->sprt, (sfVector2f){5, 5});
     sfSprite_setPosition(inventory->selected->sprt, (sfVector2f){15, 365});
+    inventory->selected->pos = (sfVector2f){15, 365};
 }
 
 void setup_inventory(inventory_t *inventory)

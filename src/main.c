@@ -11,6 +11,7 @@
 #include "include/window_func.h"
 #include "include/main_menu_struct.h"
 #include "include/main_menu.h"
+#include "include/inventory.h"
 
 
 void display_pnj(project_info_t *info, rpg_player *player)
@@ -64,7 +65,7 @@ void check_pnj_event(project_info_t *info, menu_info_t *menu, rpg_player *player
     }
 }
 
-void displays(world_tile *txt, project_info_t *info, rpg_player *player, char** map, menu_info_t *menu, sfVector2f pixel_pos, sfEvent *event)
+void displays(world_tile *txt, project_info_t *info, rpg_player *player, char** map, menu_info_t *menu, sfVector2f pixel_pos, sfEvent *event, inventory_t *inventory, item_t *item, sfRenderWindow *window)
 {
     display_world(txt, info, map);
     display_perso(info, player);
@@ -75,9 +76,9 @@ void displays(world_tile *txt, project_info_t *info, rpg_player *player, char** 
         display_settings(info, menu, 1);
         check_event_game(info, menu, pixel_pos);
     }
-    if (menu->index_menu != 1) {    
+    if (menu->index_menu != 1)  
         display_pnj(info, player);
-    }
+        draw_sprite_inventory(inventory, item, window);
     display_window(info);
 }
 
@@ -105,9 +106,17 @@ int run_rpg(project_info_t *info, world_tile *txt, rpg_player *player, menu_info
     menu->index_menu = 0;
     player->message_pnj = 0;
     sfVector2i positon = {0, 0};
+    inventory_t *inventory = malloc(sizeof(inventory_t));
+    item_t *item = malloc(sizeof(item_t));
 
     char** map = get_map("map_test.txt");
     les_sprite(txt);
+    inventory_struct_alloc(inventory);
+    setup_inventory(inventory);
+    item_struct_alloc(item);
+    setup_item(item);
+    setup_chained_list_case_sidebar(inventory);
+    setup_chained_list_case_container(inventory);
     colisions = set_colisions(txt, colisions, map);
     clock = create_clock(clock);
     while (sfRenderWindow_isOpen(info->window)) {
@@ -122,7 +131,7 @@ int run_rpg(project_info_t *info, world_tile *txt, rpg_player *player, menu_info
             sfVector2f pixelPos = sfRenderWindow_mapPixelToCoords(info->window, positon, player->view);
             sfVector2u window_size = sfRenderWindow_getSize(info->window);
             sfVector2f scale = (sfVector2f){1, 1};
-            displays(txt, info, player, map, menu, pixelPos, &event);
+            displays(txt, info, player, map, menu, pixelPos, &event, inventory, item, info->window);
             if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
                 sfSprite_setPosition(menu->info_game_sprite, pixelPos);
                 sfSprite_setScale(menu->info_sprite, scale);
@@ -131,6 +140,7 @@ int run_rpg(project_info_t *info, world_tile *txt, rpg_player *player, menu_info
             } else {
                 menu->index_menu = 0;
             }
+            inventory_f(info->window, inventory, item, player->view);
             update_perso(player, clock, colisions);
             update_monsters(player->monsters, player, clock);
             get_event(info, &event, player);

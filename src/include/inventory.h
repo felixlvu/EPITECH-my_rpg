@@ -27,6 +27,7 @@
 
     typedef struct case_container {
         sfFloatRect bounds;
+        sfRectangleShape *rect;
         struct case_container *next;
         struct case_container *prev;
         struct case_container *head;
@@ -34,6 +35,7 @@
 
     typedef struct case_sb_chained {
         sfFloatRect bounds;
+        sfRectangleShape *rect;
         struct case_sb_chained *next;
         struct case_sb_chained *prev;
         struct case_sb_chained *head;
@@ -52,14 +54,16 @@
     typedef struct inventory_selected {
         sfSprite *sprt;
         sfTexture *text;
+        sfVector2f pos;
     } inventory_selected_t;
 
     void inventory_struct_alloc(inventory_t *inventory);
     void inventory_f(sfRenderWindow *window,
-    inventory_t *inventory, item_t *item);
+    inventory_t *inventory, item_t *item, sfView *view);
     void setup_inventory(inventory_t *inventory);
     void select_slot_sidebar(inventory_t *inventory);
     void setup_chained_list_case_sidebar(inventory_t *inventory);
     void setup_chained_list_case_container(inventory_t *inventory);
+    void move_with_view(inventory_t *inventory, item_t *item, sfView *view);
 
 #endif /* !INVENTORY_H_ */

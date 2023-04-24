@@ -32,6 +32,7 @@ item_t *item, sfRenderWindow *window)
 {
     if (inventory->is_open)
         sfRenderWindow_drawSprite(window, inventory->menu->sprt, NULL);
+
     sfRenderWindow_drawSprite(window, inventory->sidebar->sprt, NULL);
     sfRenderWindow_drawSprite(window, inventory->selected->sprt, NULL);
     if (item->sword->in_inventory && inventory->is_open)
@@ -40,19 +41,27 @@ item_t *item, sfRenderWindow *window)
         sfRenderWindow_drawSprite(window, item->sword->sprt, NULL);
 }
 
-void check_pos_out_window(item_t *item)
+void check_pos_out_window(item_t *item, sfVector2f coo)
 {
-    if (item->sword->pos.x != sfSprite_getPosition(item->sword->sprt).x &&
-    item->sword->pos.y != sfSprite_getPosition(item->sword->sprt).y)
+    if (item->sword->pos.x + coo.x != sfSprite_getPosition(item->sword->sprt).x
+    && item->sword->pos.y + coo.y !=
+    sfSprite_getPosition(item->sword->sprt).y + coo.y)
         sfSprite_setPosition(item->sword->sprt, item->sword->pos);
 }
 
-void inventory_f(sfRenderWindow *window, inventory_t *inventory, item_t *item)
+void inventory_f(sfRenderWindow *window, inventory_t *inventory,
+item_t *item, sfView *view)
 {
+    sfVector2f viewCenter = sfView_getCenter(view);
+    sfVector2f viewSize = sfView_getSize(view);
+    sfVector2f coo = {viewCenter.x - viewSize.x / 2.0f,
+    viewCenter.y - viewSize.y / 2.0f};
+
     check_inventory_isopen(inventory);
     select_slot_sidebar(inventory);
-    move_item_sidebar(inventory, item, window);
-    move_item_container(inventory, item, window);
-    check_pos_out_window(item);
+    move_item_sidebar(inventory, item, window, view);
+    move_item_container(inventory, item, window, view);
+    check_pos_out_window(item, coo);
+    move_with_view(inventory, item, view);
     draw_sprite_inventory(inventory, item, window);
 }

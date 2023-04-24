@@ -35,6 +35,7 @@ SRC = src/main.c \
 	  src/inventory/init_struct_item.c \
 	  src/inventory/move_item_sidebar.c \
 	  src/inventory/move_item_container.c \
+	  src/inventory/adapt_to_view.c \
 	  src/monster_manager.c \
 	  src/set_monsters.c \
 	  src/attack_moov.c \
@@ -69,7 +70,6 @@ clean:
 	@echo "$(BOLD)$(RED)[Cleaning]$(RESET) - Removing object files"
 	@for file in $(OBJ); do \
 		echo "$(YELLOW)$$file$(RESET)"; \
-		sleep 0.1; \
 		tput cuu1 && tput dl1; \
 	done
 	@rm -f $(OBJ)
@@ -79,7 +79,6 @@ clean:
 fclean: clean
 	@echo "$(BOLD)$(RED)[Cleaning]$(RESET) - Removing $(NAME) executable"
 	@echo "$(YELLOW)$(NAME)$(RESET)"
-	@sleep 0.1
 	@tput cuu1 && tput dl1
 	@tput cuu1 && tput dl1
 	@echo "$(BOLD)$(RED)[Force Cleaning]$(RESET) - $(GREEN)Finish$(RESET)"
@@ -90,7 +89,6 @@ re: fclean all
 $(OBJ): %.o: %.c
 	@echo "$(BOLD)$(GREEN)[Compiling]$(RESET) - $(YELLOW)$<$(RESET)"
 	@gcc $(CFLAGS) -c -o $@ $<
-	@sleep 0.1
 	@tput cuu1 && tput dl1
 
 .PHONY: all clean fclean re

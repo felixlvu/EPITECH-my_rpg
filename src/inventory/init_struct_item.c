@@ -24,20 +24,21 @@ void setup_item(item_t *item)
     sfSprite_setPosition(item->sword->sprt, (sfVector2f){22.5, 372.5});
     item->sword->in_inventory = sfFalse;
     item->sword->pos = (sfVector2f){22.5, 372.5};
+    item->is_selected = sfFalse;
 }
 
 void setup_chained_list_case_sidebar(inventory_t *inventory)
 {
     inventory->case_sb->bounds = (sfFloatRect){20, 370, 80, 80};
-    inventory->case_sb->next = NULL;
-    inventory->case_sb->prev = NULL;
     inventory->case_sb->head = inventory->case_sb;
+    inventory->case_sb->prev = NULL;
+    inventory->case_sb->next = NULL;
     for (int i = 0; i < 4; i++) {
         inventory->case_sb->next = malloc(sizeof(case_sb_chained_t));
         inventory->case_sb->next->prev = inventory->case_sb;
         inventory->case_sb->next->head = inventory->case_sb->head;
         inventory->case_sb->next->bounds =
-        (sfFloatRect){20, 460 + (90 * i), 80, 80};
+        (sfFloatRect){20, 460 + (i * 90), 80, 80};
         inventory->case_sb = inventory->case_sb->next;
         inventory->case_sb->next = NULL;
     }

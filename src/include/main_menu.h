@@ -9,6 +9,7 @@
 #include <SFML/System/Types.h>
 #include <stdbool.h>
 #include "42.h"
+#include "inventory.h"
 
 #ifndef B_MUL_200_TLS_2_1_MYRPG_LOUIS_HUGUET_FUNCTIONS_MAIN_MENU_H
     #define B_MUL_200_TLS_2_1_MYRPG_LOUIS_HUGUET_FUNCTIONS_MAIN_MENU_H
@@ -53,5 +54,5 @@
     void display_settings(project_info_t *info, menu_info_t *menu, int index);
     menu_info_t *set_position_menu(project_info_t *info, menu_info_t *menu);
     void check_event_fullscreen(project_info_t *info, menu_info_t *menu);
-    void displays(world_tile *txt, project_info_t *info, rpg_player *player, char** map, menu_info_t *menu, sfVector2f pixel_pos, sfEvent *event);
+    void displays(world_tile *txt, project_info_t *info, rpg_player *player, char** map, menu_info_t *menu, sfVector2f pixel_pos, sfEvent *event, inventory_t *inventory, item_t *item, sfRenderWindow *window);
 #endif

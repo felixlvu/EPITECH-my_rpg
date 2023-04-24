@@ -11,24 +11,40 @@
 
 void select_slot_with_numx(inventory_t *inventory)
 {
-    if (sfKeyboard_isKeyPressed(sfKeyNum1))
+    if (sfKeyboard_isKeyPressed(sfKeyNum1)) {
         sfSprite_setPosition(inventory->selected->sprt, (sfVector2f){15, 365});
-    if (sfKeyboard_isKeyPressed(sfKeyNum2))
+        inventory->selected->pos = sfSprite_getPosition
+        (inventory->selected->sprt);
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyNum2)) {
         sfSprite_setPosition(inventory->selected->sprt, (sfVector2f){15, 455});
-    if (sfKeyboard_isKeyPressed(sfKeyNum3))
+        inventory->selected->pos = sfSprite_getPosition
+        (inventory->selected->sprt);
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyNum3)) {
         sfSprite_setPosition(inventory->selected->sprt, (sfVector2f){15, 545});
-    if (sfKeyboard_isKeyPressed(sfKeyNum4))
+        inventory->selected->pos = sfSprite_getPosition
+        (inventory->selected->sprt);
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyNum4)) {
         sfSprite_setPosition(inventory->selected->sprt, (sfVector2f){15, 635});
+        inventory->selected->pos = sfSprite_getPosition
+        (inventory->selected->sprt);
+    }
 }
 
 void select_slot_with_up(inventory_t *inventory)
 {
     if (sfKeyboard_isKeyPressed(sfKeyUp) && !inventory->isUpKeyPressed) {
-        if (sfSprite_getPosition(inventory->selected->sprt).y == 365)
+        if (sfSprite_getPosition(inventory->selected->sprt).y == 365) {
             sfSprite_setPosition(inventory->selected->sprt,
             (sfVector2f){15, 635});
-        else {
-            sfSprite_setPosition(inventory->selected->sprt, (sfVector2f){15, sfSprite_getPosition(inventory->selected->sprt).y - 90});
+            inventory->selected->pos = sfSprite_getPosition
+            (inventory->selected->sprt) ;
+        } else {
+            inventory->selected->pos =
+            (sfVector2f) {15, sfSprite_getPosition
+            (inventory->selected->sprt).y - 90};
         }
         inventory->isUpKeyPressed = sfTrue;
     } else if (!sfKeyboard_isKeyPressed(sfKeyUp))
@@ -38,11 +54,14 @@ void select_slot_with_up(inventory_t *inventory)
 void select_slot_with_down(inventory_t *inventory)
 {
     if (sfKeyboard_isKeyPressed(sfKeyDown) && !inventory->isDownKeyPressed) {
-        if (sfSprite_getPosition(inventory->selected->sprt).y == 635)
+        if (sfSprite_getPosition(inventory->selected->sprt).y == 635) {
             sfSprite_setPosition(inventory->selected->sprt,
             (sfVector2f){15, 365});
-        else {
-            sfSprite_setPosition(inventory->selected->sprt, (sfVector2f){15, sfSprite_getPosition(inventory->selected->sprt).y + 90});
+            inventory->selected->pos = sfSprite_getPosition
+            (inventory->selected->sprt);
+        } else {
+            inventory->selected->pos = (sfVector2f) {15, sfSprite_getPosition
+            (inventory->selected->sprt).y + 90};
         }
         inventory->isDownKeyPressed = sfTrue;
     } else if (!sfKeyboard_isKeyPressed(sfKeyDown))
