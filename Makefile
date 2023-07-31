@@ -43,7 +43,7 @@ SRC = src/main.c \
 	  src/set_scale_position_help_game.c \
 	  src/check_event_help_game.c \
 
-CFLAGS = -W -Wall -Wextra -I include -g3
+CFLAGS = -I include -g3
 
 LDFLAGS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
 

@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "include/42.h"
 #include "include/functions_play_map.h"
 
